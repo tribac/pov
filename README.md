@@ -1,2 +1,4 @@
 # pov
-Point-of-view, everybody's got one! Front-end from back-end. Integration layer from service layer.
+Point-of-view, everybody's got one!
+Back-end from front-end.
+Service layer from integration layer.
