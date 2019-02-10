@@ -8,14 +8,14 @@ var someObject = {
   ]
 };
 
-it('can pov someAttribute from someObject', () => {
+it('can pov someAttribute from someObject', function () {
   var vop = pov({ ...someObject }, { 'code': 'someAttribute' });
   assert.equal(vop.code, someObject.someAttribute);
   vop.code = 'XYZ';
   assert.equal(vop.code, 'XYZ');
 });
 
-it('can pov same attribute', () => {
+it('can pov same attribute', function () {
   var foo;
   var vop = pov({ foo: 'bar' }, { foo });
   assert.equal(vop.foo, 'bar');
@@ -23,11 +23,11 @@ it('can pov same attribute', () => {
   assert.equal(vop.foo, 'baz');
 });
 
-it('can pov someChildren from someObject', () => {
+it('can pov someChildren from someObject', function () {
   var vop = pov({ ...someObject }, {
     'client1': {
-      'get': (o) => o.someChildren && o.someChildren.length && o.someChildren[0].id,
-      'set': (o, v) => { o.someChildren && (o.someChildren.length || (o.someChildren = [{}])) && (o.someChildren[0].id = v) },
+      'get': function (o) { return o.someChildren && o.someChildren.length && o.someChildren[0].id },
+      'set': function (o, v) { o.someChildren && (o.someChildren.length || (o.someChildren = [{}])) && (o.someChildren[0].id = v) },
     }
   });
   assert.equal(vop.client1, someObject.someChildren[0].id);
@@ -35,11 +35,11 @@ it('can pov someChildren from someObject', () => {
   assert.equal(vop.client1, '12345');
 });
 
-it('can pov someChildren from empty', () => {
+it('can pov someChildren from empty', function () {
   var vop = pov({}, {
     'client1': {
-      'get': (o) => o.someChildren && o.someChildren.length && o.someChildren[0].id,
-      'set': (o, v) => {
+      'get': function (o) { return o.someChildren && o.someChildren.length && o.someChildren[0].id },
+      'set': function (o, v) {
         if (!(o.someChildren && o.someChildren.length)) o.someChildren = [{}];
         o.someChildren[0].id = v;
       },

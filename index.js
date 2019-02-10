@@ -1,7 +1,7 @@
 exports = module.exports = (function (state, mapping) {
   mapping = mapping || {};
   state = state || {};
-  let result = {};
+  var result = {};
   function addGetterSetter(name, select) {
     Object.defineProperty(result, name, {
       get: function () { return select.get ? select.get(state) : state[select] },
