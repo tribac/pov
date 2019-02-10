@@ -11,6 +11,8 @@
     "name": "Tri-Bac Nguyen",
     "email": "tribac@gmail.com"
   },
+  "homepage": "https://github.com/tribac/pov",
+  "bugs": "https://github.com/tribac/pov/issues",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^5.2.0"
