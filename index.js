@@ -1,4 +1,4 @@
-function pov(state, mapping) {
+exports = module.exports = (function (state, mapping) {
   mapping = mapping || {};
   state = state || {};
   let result = {};
@@ -10,6 +10,4 @@ function pov(state, mapping) {
   };
   Object.keys(mapping).forEach(function (key) { addGetterSetter(key, mapping[key] || key); });
   return result;
-}
-
-export default pov;
+})
