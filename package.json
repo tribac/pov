@@ -1,8 +1,8 @@
 {
   "name": "povjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Point-of-view",
-  "main": "index.js",
+  "main": "pov.js",
   "scripts": {
     "test": "mocha"
   },
