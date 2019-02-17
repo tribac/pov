@@ -1,11 +1,11 @@
 var pov = require('../pov');
 var assert = require('assert');
 
-describe('can be copied from another point-of-view', () => {
-  var source = {
+describe('can be injected with another point-of-view', () => {
+  var o = {
     foo: 'bar'
   };
-  var vop = pov(source, {
+  var oo = pov(o, {
     oof: 'foo',
     ooof: {
       'get': function (o) {
@@ -14,21 +14,28 @@ describe('can be copied from another point-of-view', () => {
     }
   });
   it('no other point-of-view does nothing', () => {
-    vop.copy();
-    assert.equal(vop.oof, 'bar');
+    oo.inject();
+    assert.equal(oo.oof, 'bar');
   });
   it('null other point-of-view does nothing', () => {
-    vop.copy(null);
-    assert.equal(vop.oof, 'bar');
+    oo.inject(null);
+    assert.equal(oo.oof, 'bar');
   });
   it('empty other point-of-view does nothing', () => {
-    vop.copy({});
-    assert.equal(vop.oof, 'bar');
+    oo.inject({});
+    assert.equal(oo.oof, 'bar');
   });
   it('non-matching properties in other point-of-view does nothing', () => {
-    vop.copy({
+    oo.inject({
       bar: 'foo'
     });
-    assert.equal(vop.oof, 'bar');
+    assert.equal(oo.oof, 'bar');
   });
+  it('matching values get changed', () => {
+    var expected = 'baz';
+    oo.inject({
+      oof: expected
+    });
+    assert.equal(oo.oof, expected);
+  })
 });

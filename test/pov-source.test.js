@@ -2,21 +2,21 @@ var pov = require('../pov');
 var assert = require('assert');
 
 describe('can expose its source (the original underlying state)', () => {
-    var vop = pov({
+    var o = {
         foo: 'bar'
-    });
+    };
+    var oo = pov(o);
     it('as r/o', () => {
-        assert.deepEqual(vop.source, {
-            foo: 'bar'
-        });
+        assert.deepEqual(oo.source, o);
         try {
-            vop.source = 'toto';
+            oo.source = 'toto';
             assert.fail('cannot change r/o prop');
-        } catch (err) {}
+        } catch (err) {
+            assert.deepEqual(oo.source, o);
+        }
     });
     it('as a shallow other and not reference', () => {
-        var _of = vop.source;
-        _of.bar = 'baz';
-        assert.equal(vop.source.foo, 'bar');
+        oo.source.bar = 'baz';
+        assert.equal(oo.source.foo, o.foo);
     });
 });

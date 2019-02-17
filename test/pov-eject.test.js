@@ -3,10 +3,10 @@ var assert = require('assert');
 
 describe('can be ejected', () => {
   var d = Object.getOwnPropertyDescriptor;
-  var source = {
+  var o = {
     foo: 'bar'
   };
-  var vop = pov(source, {
+  var oo = pov(o, {
     oof: 'foo',
     ooof: {
       'get': function (o) {
@@ -14,17 +14,17 @@ describe('can be ejected', () => {
       }
     }
   });
-  var other = vop.eject();
+  var ooo = oo.eject();
   it('Object.assign safe', () => {
-    assert.deepEqual(Object.assign({}, other), other);
+    assert.deepEqual(Object.assign({}, ooo), ooo);
   });
   it('exposing same "values"', () => {
-    assert.equal(other.oof, vop.source.foo);
-    assert.equal(other.ooof, vop.source.foo);
+    assert.equal(ooo.oof, oo.source.foo);
+    assert.equal(ooo.ooof, oo.source.foo);
   });
   it('exposing values as NON-get/set props', () => {
-    assert(d(other, 'oof') && !d(other, 'oof')['get']);
-    assert(d(other, 'oof') && !d(other, 'oof')['set']);
-    assert(d(other, 'ooof') && !d(other, 'ooof')['get']);
+    assert(d(ooo, 'oof') && !d(ooo, 'oof')['get']);
+    assert(d(ooo, 'oof') && !d(ooo, 'oof')['set']);
+    assert(d(ooo, 'ooof') && !d(ooo, 'ooof')['get']);
   })
 });

@@ -6,7 +6,7 @@ exports = module.exports = (function pov(source, mapping) {
     clone: function clone() {
       return pov(source, mapping);
     },
-    copy: function copy(from) {
+    inject: function inject(from) {
       from = from || {};
       var keys = Object.keys(mapping);
       Object.keys(from).forEach(key => {
