@@ -26,7 +26,7 @@ exports = module.exports = (function pov(source, mapping) {
   function addGetterSetter(name, select) {
     if (select) {
       Object.defineProperty(result, name, {
-        configurable: true,
+        configurable: false,
         enumerable: true,
         get: function () {
           return select.get ? select.get(source) : source[select]

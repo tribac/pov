@@ -21,9 +21,12 @@ describe('basic contract', () => {
         assert.equal(o.foo, oo.oof);
     });
     it('can add non-mapped properties (even same name as source)', () => {
-      oo.bar = 'oof';
-      assert.equal(oo.bar, 'oof');
-      assert.equal(oo.source.bar, 'foo');
-      assert.equal(o.bar, 'foo');
-  });
+        oo.bar = 'oof';
+        assert.equal(oo.bar, 'oof');
+        assert.equal(oo.source.bar, 'foo');
+        assert.equal(o.bar, 'foo');
+    });
+    it('can not delete mapped properties', () => {
+        assert(!(delete oo.oof));
+    })
 })
