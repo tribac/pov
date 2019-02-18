@@ -1,7 +1,7 @@
 var pov = require('../pov');
 var assert = require('assert');
 
-describe.skip('can be cloned using Object.assign', () => {
+describe('can be cloned using Object.assign', () => {
   var d = Object.getOwnPropertyDescriptor;
   var o = {
     foo: 'bar'
@@ -14,17 +14,19 @@ describe.skip('can be cloned using Object.assign', () => {
       }
     }
   });
-  var ooo = Object.assign({}, oo);
+  var o3 = Object.assign({}, oo);
   it('base assumption on descriptors', () => {
-    assert(!d(oo, 'oof')['get']);
+    assert(d(oo, 'oof')['get']);
   });
   it('exposing same "values"', () => {
-    assert.equal(ooo.oof, oo.source.foo);
-    assert.equal(ooo.ooof, oo.source.foo);
+    assert.equal(o3.oof, oo.source.foo);
+    assert.equal(o3.ooof, oo.source.foo);
   });
   it('exposing values as get/set props samewise', () => {
-    assert(!d(ooo, 'oof')['get']);
-    assert(!d(ooo, 'oof')['set']);
-    assert(!d(ooo, 'ooof')['get']);
+    assert(d(o3, 'oof'));
+    assert(!d(o3, 'oof')['get']);
+    assert(!d(o3, 'oof')['set']);
+    assert(d(o3, 'ooof'));
+    assert(!d(o3, 'ooof')['get']);
   })
 });

@@ -11,7 +11,8 @@ describe('can be injected with another point-of-view', () => {
       'get': function (o) {
         return o.foo
       }
-    }
+    },
+    of: null
   });
   it('no other point-of-view does nothing', () => {
     oo.inject();
@@ -37,5 +38,12 @@ describe('can be injected with another point-of-view', () => {
       oof: expected
     });
     assert.equal(oo.oof, expected);
+  })
+  it('matching values with falsy mapping get changed', () => {
+    var expected = 'baz';
+    oo.inject({
+      of: expected
+    });
+    assert.equal(oo.of, expected);
   })
 });

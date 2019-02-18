@@ -8,9 +8,8 @@ exports = module.exports = (function pov(source, mapping) {
     },
     inject: function inject(from) {
       from = from || {};
-      var keys = Object.keys(mapping);
       Object.keys(from).forEach(key => {
-        keys.includes(key) && (this[key] = from[key]);
+        key in mapping && (this[key] = from[key]);
       });
     },
     get source() {
@@ -25,20 +24,30 @@ exports = module.exports = (function pov(source, mapping) {
   };
 
   function addGetterSetter(name, select) {
-    Object.defineProperty(result, name, {
-      get: function () {
-        return select.get ? select.get(source) : source[select]
-      },
-      set: function (value) {
-        if (select.set) select.set(source, value);
-        else source[select] = value;
-      }
-    });
+    if (select) {
+      Object.defineProperty(result, name, {
+        configurable: true,
+        enumerable: true,
+        get: function () {
+          return select.get ? select.get(source) : source[select]
+        },
+        set: function (value) {
+          if (select.set) select.set(source, value);
+          else source[select] = value;
+        }
+      });
+    } else {
+      Object.defineProperty(result, name, {
+        configurable: true,
+        enumerable: true,
+        writable: true
+      })
+    }
   };
 
   Object.keys(mapping).forEach(function (key) {
-    addGetterSetter(key, mapping[key] || key);
+    addGetterSetter(key, mapping[key]);
   });
-  
+
   return result;
 })

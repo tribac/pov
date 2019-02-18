@@ -14,17 +14,17 @@ describe('can be ejected', () => {
       }
     }
   });
-  var ooo = oo.eject();
+  var o3 = oo.eject();
   it('Object.assign safe', () => {
-    assert.deepEqual(Object.assign({}, ooo), ooo);
+    assert.deepEqual(Object.assign({}, o3), o3);
   });
   it('exposing same "values"', () => {
-    assert.equal(ooo.oof, oo.source.foo);
-    assert.equal(ooo.ooof, oo.source.foo);
+    assert.equal(o3.oof, oo.source.foo);
+    assert.equal(o3.ooof, oo.source.foo);
   });
   it('exposing values as NON-get/set props', () => {
-    assert(d(ooo, 'oof') && !d(ooo, 'oof')['get']);
-    assert(d(ooo, 'oof') && !d(ooo, 'oof')['set']);
-    assert(d(ooo, 'ooof') && !d(ooo, 'ooof')['get']);
+    assert(d(o3, 'oof') && !d(o3, 'oof')['get']);
+    assert(d(o3, 'oof') && !d(o3, 'oof')['set']);
+    assert(d(o3, 'ooof') && !d(o3, 'ooof')['get']);
   })
 });

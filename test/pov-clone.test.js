@@ -14,17 +14,17 @@ describe('can be cloned', () => {
       }
     }
   });
-  var ooo = oo.clone();
+  var o3 = oo.clone();
   it('base assumption on descriptors', () => {
     assert(d(oo, 'oof')['get']);
   });
   it('exposing same "values"', () => {
-    assert.equal(ooo.oof, oo.source.foo);
-    assert.equal(ooo.ooof, oo.source.foo);
+    assert.equal(o3.oof, oo.source.foo);
+    assert.equal(o3.ooof, oo.source.foo);
   });
   it('exposing values as get/set props samewise', () => {
-    assert(d(ooo, 'oof')['get']);
-    assert(d(ooo, 'oof')['set']);
-    assert(d(ooo, 'ooof')['get']);
+    assert(d(o3, 'oof')['get']);
+    assert(d(o3, 'oof')['set']);
+    assert(d(o3, 'ooof')['get']);
   })
 });
