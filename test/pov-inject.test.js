@@ -1,7 +1,7 @@
 var pov = require('../pov');
 var assert = require('assert');
 
-describe('can be injected with another point-of-view', () => {
+describe('can be injected with another point-of-view', function() {
   var o = {
     foo: 'bar'
   };
@@ -14,32 +14,32 @@ describe('can be injected with another point-of-view', () => {
     },
     of: null
   });
-  it('no other point-of-view does nothing', () => {
+  it('no other point-of-view does nothing', function() {
     oo.inject();
     assert.equal(oo.oof, 'bar');
   });
-  it('null other point-of-view does nothing', () => {
+  it('null other point-of-view does nothing', function() {
     oo.inject(null);
     assert.equal(oo.oof, 'bar');
   });
-  it('empty other point-of-view does nothing', () => {
+  it('empty other point-of-view does nothing', function() {
     oo.inject({});
     assert.equal(oo.oof, 'bar');
   });
-  it('non-matching properties in other point-of-view does nothing', () => {
+  it('non-matching properties in other point-of-view does nothing', function() {
     oo.inject({
       bar: 'foo'
     });
     assert.equal(oo.oof, 'bar');
   });
-  it('matching values get changed', () => {
+  it('matching values get changed', function() {
     var expected = 'baz';
     oo.inject({
       oof: expected
     });
     assert.equal(oo.oof, expected);
   });
-  it('matching values with falsy mapping get changed', () => {
+  it('matching values with falsy mapping get changed', function() {
     var expected = 'baz';
     oo.inject({
       of: expected
