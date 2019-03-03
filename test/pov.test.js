@@ -1,13 +1,14 @@
-var pov = require('../pov');
-var assert = require('assert');
+import pov from '../src/pov';
+import assert from 'assert';
 
 describe('basic contract', function() {
-  var o = {
+  const o = {
     foo: 'bar',
     bar: 'foo'
   };
-  var oo = pov(o, {
-    oof: 'foo'
+  const oo = pov(o, {
+    oof: 'foo',
+    rab: null
   });
   it('can map source', function() {
     assert.equal(oo.oof, o.foo);
@@ -27,6 +28,17 @@ describe('basic contract', function() {
     assert.equal(o.bar, 'foo');
   });
   it('can not delete mapped properties', function() {
-    assert(!delete oo.oof);
+    assert(oo.oof);
+    try {
+      delete oo.oof;
+      assert.fail();
+    } catch (err) {
+      assert(oo.oof);
+    }
+  });
+  it('can delete a non-mapped properties', function() {
+    oo.rab = 'rab';
+    delete oo.rab;
+    assert(!oo.rab);
   });
 });

@@ -1,40 +1,44 @@
-'use strict';
+const getter = (o, field) => o[field];
 
-function getter(o, field) {
-  return o[field];
-}
-
-function setter(o, field, v) {
+const setter = (o, field, v) => {
   o[field] = v;
-}
+};
 
-exports = module.exports = function pov(source, mapping, options) {
-  mapping = mapping || {};
-  source = source || {};
-  options = options || {};
-  var _get = options.get || getter;
-  var _set = options.set || setter;
+const array = (_get = getter, _set = setter) => (
+  field,
+  mapper = unmapped => unmapped
+) => {
+  let _mapped = null;
+  return {
+    get: o => {
+      if (_mapped) return _mapped;
+      _mapped = (_get(o, field) || []).map(unmapped => mapper(unmapped));
+      return _mapped;
+    },
+    set: (o, v) => {
+      _mapped = [];
+      _set(
+        o,
+        field,
+        v.map(mapped => {
+          const unmapped = {};
+          const newMapped = mapper(unmapped);
+          newMapped.inject(mapped);
+          _mapped = _mapped.concat(newMapped);
+          return unmapped;
+        })
+      );
+    }
+  };
+};
 
-  function array(field, mapper = unmapped => unmapped) {
-    return {
-      get: o => (_get(o, field) || []).map(unmapped => mapper(unmapped)),
-      set: (o, v) => {
-        _set(
-          o,
-          field,
-          v.map(mapped => {
-            const unmapped = {};
-            const newMapped = mapper(unmapped);
-            newMapped.inject(mapped);
-            return unmapped;
-          })
-        );
-      }
-    };
-  }
-
+const pov = (_get = getter, _set = setter) => (
+  source = {},
+  mapping = {},
+  options = {}
+) => {
   function clone() {
-    return pov(source, mapping);
+    return pov(_get, _set)(source, mapping);
   }
 
   function inject(from) {
@@ -52,8 +56,8 @@ exports = module.exports = function pov(source, mapping, options) {
     }, {});
   }
 
-  var result = {
-    array,
+  const result = {
+    array: array(_get, _set),
     clone,
     inject,
     eject,
@@ -90,3 +94,6 @@ exports = module.exports = function pov(source, mapping, options) {
 
   return result;
 };
+const _pov = pov(getter, setter);
+export default _pov;
+export { pov, array, getter, setter };

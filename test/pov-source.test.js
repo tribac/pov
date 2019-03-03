@@ -1,11 +1,11 @@
-var pov = require('../pov');
-var assert = require('assert');
+import pov from '../src/pov';
+import assert from 'assert';
 
 describe('can expose its source (the original underlying state)', function() {
-  var o = {
+  const o = {
     foo: 'bar'
   };
-  var oo = pov(o);
+  const oo = pov(o);
   it('as r/o', function() {
     assert.deepEqual(oo.source, o);
     try {

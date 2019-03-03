@@ -1,11 +1,11 @@
-var pov = require('../pov');
-var assert = require('assert');
+import pov from '../src/pov';
+import assert from 'assert';
 
 describe('can be injected with another point-of-view', function() {
-  var o = {
+  const o = {
     foo: 'bar'
   };
-  var oo = pov(o, {
+  const oo = pov(o, {
     oof: 'foo',
     ooof: {
       get: function(o) {
@@ -33,14 +33,14 @@ describe('can be injected with another point-of-view', function() {
     assert.equal(oo.oof, 'bar');
   });
   it('matching values get changed', function() {
-    var expected = 'baz';
+    const expected = 'baz';
     oo.inject({
       oof: expected
     });
     assert.equal(oo.oof, expected);
   });
   it('matching values with falsy mapping get changed', function() {
-    var expected = 'baz';
+    const expected = 'baz';
     oo.inject({
       of: expected
     });

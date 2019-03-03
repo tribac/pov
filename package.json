@@ -1,10 +1,11 @@
 {
   "name": "povjs",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Point-of-view",
-  "main": "pov.js",
+  "main": "dist/pov.js",
   "scripts": {
-    "test": "mocha"
+    "build": "babel src --out-dir ./dist --source-maps",
+    "test": "./node_modules/.bin/mocha --require @babel/register"
   },
   "keywords": [],
   "author": {
@@ -15,6 +16,11 @@
   "bugs": "https://github.com/tribac/pov/issues",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
     "mocha": "^5.2.0"
   }
 }

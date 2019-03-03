@@ -1,12 +1,12 @@
-var pov = require('../pov');
-var assert = require('assert');
+import pov from '../src/pov';
+import assert from 'assert';
 
 describe('can be cloned', function() {
-  var d = Object.getOwnPropertyDescriptor;
-  var o = {
+  const d = Object.getOwnPropertyDescriptor;
+  const o = {
     foo: 'bar'
   };
-  var oo = pov(o, {
+  const oo = pov(o, {
     oof: 'foo',
     ooof: {
       get: function(o) {
@@ -14,7 +14,7 @@ describe('can be cloned', function() {
       }
     }
   });
-  var o3 = oo.clone();
+  const o3 = oo.clone();
   it('base assumption on descriptors', function() {
     assert(d(oo, 'oof')['get']);
   });

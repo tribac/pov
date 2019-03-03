@@ -1,12 +1,12 @@
-var pov = require('../pov');
-var assert = require('assert');
+import pov from '../src/pov';
+import assert from 'assert';
 
 describe('can be ejected', function() {
-  var d = Object.getOwnPropertyDescriptor;
-  var o = {
+  const d = Object.getOwnPropertyDescriptor;
+  const o = {
     foo: 'bar'
   };
-  var oo = pov(o, {
+  const oo = pov(o, {
     oof: 'foo',
     ooof: {
       get: function(o) {
@@ -14,7 +14,7 @@ describe('can be ejected', function() {
       }
     }
   });
-  var o3 = oo.eject();
+  const o3 = oo.eject();
   it('Object.assign safe', function() {
     assert.deepEqual(Object.assign({}, o3), o3);
   });
