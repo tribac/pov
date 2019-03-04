@@ -24,7 +24,7 @@ const array = (_get = getter, _set = setter) => (
           const unmapped = {};
           const newMapped = mapper(unmapped);
           newMapped.inject(mapped);
-          _mapped = _mapped.concat(newMapped);
+          _mapped.push(newMapped);
           return unmapped;
         })
       );
