@@ -119,7 +119,7 @@ function _setter(source, path, value) {
   console.log('setter', {path, value});
   setter(source, path, value);
 }
-const pov = currying_pov(_getter, _setter)(...);
+const pov = currying_pov(_getter, _setter);
 ```
 
 Another example would be to provide custom `getter` & `setter` to support nested properties:
