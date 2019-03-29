@@ -6,7 +6,7 @@ const setter = (o, field, v) => {
 
 const array = (_get = getter, _set = setter) => (
   field,
-  mapper = unmapped => unmapped
+  mapper = unmapped => unmapped,
 ) => {
   let _mapped = null;
   return {
@@ -26,16 +26,16 @@ const array = (_get = getter, _set = setter) => (
           newMapped.inject(mapped);
           _mapped.push(newMapped);
           return unmapped;
-        })
+        }),
       );
-    }
+    },
   };
 };
 
 const pov = (_get = getter, _set = setter) => (
   source = {},
   mapping = {},
-  options = {}
+  options = {},
 ) => {
   function clone() {
     return pov(_get, _set)(source, mapping);
@@ -57,13 +57,12 @@ const pov = (_get = getter, _set = setter) => (
   }
 
   const result = {
-    array: array(_get, _set),
     clone,
     inject,
     eject,
     get source() {
       return Object.assign({}, source);
-    }
+    },
   };
 
   function addGetterSetter(name, select) {
@@ -77,13 +76,13 @@ const pov = (_get = getter, _set = setter) => (
         set: function(value) {
           if (select.set) select.set(source, value);
           else _set(source, select, value);
-        }
+        },
       });
     } else {
       Object.defineProperty(result, name, {
         configurable: true,
         enumerable: true,
-        writable: true
+        writable: true,
       });
     }
   }
@@ -94,6 +93,6 @@ const pov = (_get = getter, _set = setter) => (
 
   return result;
 };
-const _pov = pov(getter, setter);
-export default _pov;
+
+export default pov(getter, setter);
 export { pov, array, getter, setter };
